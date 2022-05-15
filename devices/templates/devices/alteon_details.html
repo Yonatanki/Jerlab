@@ -1,0 +1,206 @@
+{% extends 'main.html' %} 
+
+{% block content %}
+<body id="{{alteon.id}}" onload=singleAlteonFetch()>
+<div class="formPage my-xl">
+  <div style="padding: center" class="content-box">
+    <div style="padding-left: 28%" class="formWrapper">
+      <div  class="container  form--inline container--header-form ">
+        <button class="backButton" onclick="history.back()" cursor: pointer;><i class="im im-angle-left" style="color:navy">&lt;</i></button>
+        <div>
+            <label class="fc form__field form__label--inline form__label strong">Alteon Details</label>
+        </div>
+      </div>
+      <table data-id="{{alteon.id}}" id="alteon--d" class=" table table-striped table-hover table-bordered table-condensed">
+        <tbody>
+          <tr>
+            <td>MAC</td>
+            <td>{{alteon.MAC}}</td>
+          </tr>
+          <tr>
+            <td >Platform</td>
+            <td id="alteon--Platform{{alteon.id}}">{{alteon.Platform}}</td>
+          </tr>
+          {% comment %}
+          <tr>
+            <td>Rack</td>
+            <td>{{alteon.Rack}}</td>
+          </tr>
+          {% endcomment %}
+          <tr>
+            <td>RAM</td>
+            <td id="alteon--RAM{{alteon.id}}">{{alteon.RAM}}</td>
+          </tr>
+          <tr>
+            <td>SSL Card</td>
+            <td id="alteon--SSL_Card{{alteon.id}}">{{alteon.SSL_Card}}</td>
+          </tr>
+          <tr>
+            <td>Version</td>
+            <td id="alteon--Version{{alteon.id}}">{{alteon.Version}}</td>
+          </tr>
+          <tr>
+            <td>Owner(email)</td>
+            <td>
+              <a href="mailto:{{row.Owner}}?subject=Mail from Our Site"
+                >{{alteon.Owner}}</a>
+            </td>
+          </tr>
+          <tr>
+            <td>State</td>
+            <td id="alteon--State{{alteon.id}}">{{alteon.State}}</td>
+          </tr>
+          <tr>
+            <td>Console</td>
+            <td>
+              <a href="telnet://{{alteon.Console}}:{{alteon.Management_Port}}"
+                >{{alteon.Console}}:{{alteon.Management_Port}}</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Management</td>
+            <td>
+              <a href="https://{{alteon.Management}}" target="_blank">{{alteon.Management}}</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Management Port</td>
+            <td>{{alteon.Management_Port}}</td>
+          </tr>
+          <tr>
+            <td>Management Vlan</td>
+            <td>{{alteon.Management_Vlan}}</td>
+          </tr>
+          <tr>
+            <td>Router Management</td>
+            {% if alteon.Router_Management == None %}
+            <td>None</td>
+            {% else %}
+            <td><a href="ssh2://{{alteon.Router_Management}}">{{alteon.Router_Management}}</a></td>
+            {% endif %}
+          </tr>
+          <tr>
+            <td>Vlans</td>
+            <td>{{alteon.Vlans}}</td>
+          </tr>
+          <tr>
+            <td>User Name</td>
+            <td>{{alteon.User_name}}</td>
+          </tr>
+          <tr>
+            <td>Password</td>
+            <td>{{alteon.Password}}</td>
+          </tr>
+          <tr>
+            <td>Form</td>
+            <td id="alteon--form">{{alteon.Form}}</td>
+          </tr>
+          <tr>
+            <td>Usage Days</td>
+            {% if alteon.Usage_Days == None or alteon.Usage_Days == 0 %}
+            <td>Free to Use</td>
+            {% else %}
+            <td>{{alteon.Usage_Days}}</td>
+            {% endif %}
+          </tr>
+          <tr>
+            <td>Notes</td>
+            <td>{{alteon.Notes}}</td>
+          </tr>
+          <tr></tr>
+        </tbody>
+      </table>
+	</div>
+</div>
+</div>
+{% include 'pagination.html' with queryset=alt_list custom_range=custom_range %}
+      {% if messages %} 
+      {% for message in messages %}
+      <div class="alert alert-success alert-dismissible  alert__message alert--{{message.tags}}">
+        {{message}}
+        <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      </div>
+
+      {% endfor %} 
+      {% endif %}
+
+      <!--		</div>-->
+      <!--		<div class="col-md-6">    -->
+
+      <!--<form action="" method="GET">-->
+      <!--    {% csrf_token %}-->
+      <!--    {{alteon.as_p}}-->
+      <!--    {{end_date}}-->
+      <!--&lt;!&ndash;    {% for field in form %}&ndash;&gt;-->
+      <!--&lt;!&ndash;    {{field.label}}&ndash;&gt;-->
+      <!--&lt;!&ndash;    {{field.as_p}}&ndash;&gt;-->
+      <!--&lt;!&ndash;    {% endfor %}&ndash;&gt;-->
+      <!--&lt;!&ndash;    <input type="submit">&ndash;&gt;-->
+      <!--</form>-->
+
+      <!--<table>-->
+      <!--    <tr>-->
+      <!--        <th>MAC</th>-->
+      <!--        <td>Platform</td>-->
+      <!--        <td>RAM</td>-->
+      <!--        <td>Rack</td>-->
+      <!--        <td>State</td>-->
+      <!--    </tr>-->
+      <!--        {% for row in projects %}-->
+      <!--            <tr>-->
+      <!--                <td>{{row.MAC}}</td>-->
+      <!--                <td>{{row.Platform}}</td>-->
+      <!--                <td>{{row.RAM}}</td>-->
+      <!--                <td>{{row.Rack}}</td>-->
+      <!--                <td>{{row.State}}</td>-->
+      <!--                <td><a href="{% url 'project' row.MAC %}">Details</a></td>-->
+      <!--            </tr>-->
+      <!--    {% endfor %}-->
+      <!--</table>-->
+
+      <!--<form action="" method="GET">-->
+      <!--    {% csrf_token %}-->
+      <!--    {{alteon.as_table}}-->
+      <!--&lt;!&ndash;    {% for field in form %}&ndash;&gt;-->
+      <!--&lt;!&ndash;    {{field.label}}&ndash;&gt;-->
+      <!--&lt;!&ndash;    {{field.as_p}}&ndash;&gt;-->
+      <!--&lt;!&ndash;    {% endfor %}&ndash;&gt;-->
+      <!--&lt;!&ndash;    <input type="submit">&ndash;&gt;-->
+      <!--</form>-->
+
+      <!--test-->
+      <!--<br>-->
+      <!--<br>-->
+      <!--<br>-->
+      <!--<br>-->
+      <!--        <ul>-->
+      <!--            {% for project in projects %}-->
+      <!--            <li>RAM:<a href="{% url 'project' project.MAC %}">{{project.RAM}}</a></li>-->
+      <!--            {% endfor %}-->
+      <!--        </ul>-->
+      <!--&lt;!&ndash;{% for mac in ADC %}&ndash;&gt;-->
+      <!--    <tr>-->
+      <!--        <td>{{item.MAC}}</td>-->
+      <!--        <td>{{item.Platform}}</td>-->
+      <!--        <td>{{item.Rack}}</td>-->
+      <!--        <td>{{item.created}}</td>-->
+      <!--        <td><a href="{% url 'home' %}">Detail</a></td>-->
+      <!--    </tr>-->
+      <!--{% endfor %}-->
+
+      <!--        <hr>-->
+      <!--&lt;!&ndash;        {{project.MAC}}&ndash;&gt;-->
+      <!--        {% for alteon in projects %}-->
+      <!--            <span style="border:2px solid blue">{{alteon}}</span>-->
+      <!--        {% endfor %}-->
+      <!--        <hr>-->
+      </body>
+      {% endblock %} 
+      
+      {% block scripts %}
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      {% comment %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> {% endcomment %}
+      {% comment %} <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script> {% endcomment %}
+      {% endblock %}
+ 

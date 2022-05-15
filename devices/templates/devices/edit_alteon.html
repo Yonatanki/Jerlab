@@ -1,0 +1,76 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>-->
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"
+      integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous"
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<!-- Main Section -->
+<main class="formPage my-xl">
+    <div class="content-box">
+        <div class="formWrapper">
+            <div class="container  form--inline container--header-form  ">
+                <button class="backButton fl" onclick="history.back()" cursor: pointer;><i class="im im-angle-left" style="color:navy">&lt;</i></button>
+                <div>
+                    <label class="fr form__field form__label--inline form__label strong">Update Alteon</label>
+                </div>
+            </div>
+           <form class="form" method="POST", enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label for="MAC">MAC</label>
+                    <strong><input class="input" type="text" id="MAC" name="MAC" value="{{alteon_form.MAC.value}}" readonly></strong>
+                </div>
+                <div style="display:none;">
+                    <label for="RAM">RAM</label>
+                    <strong><input class="input" type="text" id="RAM" name="RAM" value="{{alteon_form.RAM.value}}" readonly></strong>
+                 
+                    <label for="Form">Form</label>
+                    <strong><input class="input" type="text" id="Form" name="Form" value="{{alteon_form.Form.value}}" readonly></strong>
+                
+                    <label for="SSL_Card">SSL Card</label>
+                    <strong><input class="input" type="text" id="SSL_Card" name="SSL_Card" value="{{alteon_form.SSL_Card.value}}" readonly></strong>
+                
+                    <label for="Version">Version</label>
+                    <strong><input class="input" type="text" id="Version" name="Version" value="{{alteon_form.Version.value}}" readonly></strong>
+                </div>
+                
+                {% for field in alteon_form %}
+                    {% for displayfield in display %}
+                        {% if field.label.lower == displayfield.lower %}
+                <!-- Input:Text -->
+                            <div class="form__field">
+                                <label for="formInput#text">{{field.label}} </label>
+                                {{field}}
+                            </div>
+                       {% endif %}
+                   {% endfor %}
+                {% endfor %}
+                <input id="form--submit" class="btn btn--sub btn--lg  my-md" type="submit" value="Submit" />
+                {% comment %} {% if messages %}
+
+				{% for message in messages %}
+				<div class="alert  alert--{{message.tags}}">
+					<p class="alert__message">{{message}}</p>
+					<button class="alert__close">x</button>
+				</div>
+			
+				{% endfor %}
+			
+				{% endif %} {% endcomment %}
+            </form>
+        </div>
+    </div>
+</main>
+
+<p id="demo"></p>
+
+
+{% endblock %}
+
+
+

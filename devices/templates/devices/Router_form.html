@@ -1,0 +1,50 @@
+{% extends "main.html" %}
+{% block content %}
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"
+      integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous"
+      xmlns="http://www.w3.org/1999/html">
+<!-- Main Section -->
+<main class="formPage my-xl">
+    <div class="content-box">
+        <div class="formWrapper">
+            <div class="container  form--inline container--header-form  ">
+                <button class="backButton fl" onclick="history.back()"><i style="color:navy">&lt;</i></button>
+                <div>
+                    <label class="fr form__field form__label--inline form__label ">Router Details</label>
+                </div>
+            </div>
+            <form class="form" method="POST", enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in router_form %}
+                <!-- Input:Text -->
+                <div class="form__field">
+                    <label for="formInput#text">{{field.label}} </label>
+                    {{field}}
+                </div>
+                {% endfor %}
+                <input class="btn btn--sub btn--lg  my-md" type="submit" value="Submit" />
+            </form>
+        </div>
+    </div>
+</main>
+
+<!--        <table class="table table-striped table-hover table-bordered">-->
+<!--         <thead class="thead-dark">-->
+<!--            <td>Platform</td>-->
+<!--            <td>Type</td>-->
+<!--            <td>HTTP (For Juniper)</td>-->
+<!--            <td>SSH</td>-->
+<!--            <td>User</td>-->
+<!--            <td>Password</td>-->
+<!--            <td>Ports</td>-->
+<!--            <td>Ports List</td>-->
+
+<!--         </thead>-->
+
+
+<!--      </table>-->
+
+{% endblock %}
+
