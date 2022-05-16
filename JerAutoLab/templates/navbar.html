@@ -1,0 +1,42 @@
+{% load static %}
+
+<!--<div style="min-height:100vh; display:flex; flex-direction:column; justify-content:space-between;">-->
+<!--  <div>-->
+<!-- Header Section -->
+  <header role="main" class=" header">
+    <div class="container container--narrow">
+      <!-- the styles came from _utilities  -->
+      <a href="{% url 'home' %}" style="margin-left: -30%" class="header__logo img--header__logo"  >
+        <img class="spin" src="{% static 'img/logo.svg' %}" alt="Enablement">
+      </a>
+      <nav class="header__nav" style="width: 850px;">
+        <ul class="header__menu">
+
+          <li class="header__menuItem"><a href="{% url 'home' %}">Home</a></li>
+          <li class="header__menuItem"><a href="{% url 'altlist' %}" id="">Alteons</a></li>
+          <li class="header__menuItem"><a href="{% url 'routers_list' %}">Routers</a></li>
+          {% comment %} <li class="header__menuItem"><a href="/services">Services</a></li>
+          <li class="header__menuItem"><a href="/config">Config DB</a></li> {% endcomment %}
+<!--          <li class="header__menuItem"><a href="login.html" class="btn btn&#45;&#45;sub">Login/Sign Up</a></li>-->
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<body>
+  	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script> -->
+    {% block content %}
+
+
+    {% endblock %}
+</body>
+
+
+
+
+</html>
+
+

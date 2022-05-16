@@ -1,0 +1,174 @@
+{% extends 'main.html' %} 
+{% load static %}
+{% block content %}
+
+<body onload="getHome()">
+  <main class="alteonSearch">
+    <section class="hero-section text-center" style="height: 20vh">
+      <div class="container container--narrow">
+        <div class="hero-section__box">
+          <h2>Search for <span>Alteon</span></h2>
+        </div>
+
+        <div class="hero-section__search">
+          <form
+            id="searchForm"
+            class="form"
+            action=" {% url 'altlist' %}"
+            method="get"
+          >
+            <div class="form__field">
+              <label for="formInput#search">Search By Platform or Management</label>
+              <input
+                class="input input--text"
+                id="formInput#search"
+                type="text"
+                name="search_query"
+                value="{{search_query}}"
+                placeholder="Search by Alteon Platform or Management"
+              />
+            </div>
+            <input class="btn btn--sub btn--lg" type="submit" value="Search" />
+          </form>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div style="margin-top: 1%">
+    <button class="btn btn--sub btn--lg addbutton" style="padding: 5px">
+      <a href="{% url 'create-alteon' %}" class="btn--sub">Add Alteon</a>
+    </button>
+  </div>
+  <table class="table table-striped table-hover table-bordered">
+    <table class="settings__table table-bordered table-striped table-condensed">
+      <thead class="thead-dark text-center strong">
+        <!--<td>Edit</td>-->
+        <!--<td>Details</td>-->
+        <tr>
+          <td id="mac">MAC</td>
+          <td>Platform</td>
+          <td>RAM (GB)</td>
+          <!--            <td>SSL Card</td>-->
+          <td>Version</td>
+          <td>Form</td>
+          <td>Owner (Email)</td>
+          <td>Console</td>
+          <td>Management</td>
+          <td>VLANs</td>
+          <td>User Name</td>
+          <td>Password</td>
+          <td>Status</td>
+          <td>Usage Days</td>
+          <!--            <td>Notes</td>-->
+          <!--            <td>Run</td>-->
+        </tr>
+      </thead>
+      {% for alteon in alt_list %}
+      <tr class="text-center" onload="aload()">
+        <td>
+          <a id="alteon--MAC" href="{% url 'alteon-details' alteon.id %}"
+            >{{alteon.MAC}}</a
+          >
+        </td>
+        <td id="alteon--Platform{{alteon.id}}">{{alteon.Platform}}</td>
+        <!--                <td>{{alteon.Rack}}</td>-->
+        <td id="alteon--RAM{{alteon.id}}">{{alteon.RAM}}</td>
+        <!--                <td>{{alteon.SSL_Card}}</td>-->
+        <td id="alteon--Version{{alteon.id}}">{{alteon.Version}}</td>
+        <td id="alteon--form{{alteon.id}}">{{alteon.Form}}</td>
+        <td>
+          <a
+            href="mailto:{{alteon.Owner}}?subject=Sust QA Site&body=Are you still using in {{alteon.Management}}?%0D%0AIf so, please update the usage days on the site.%0D%0AThank you."
+            class="email-link"
+            >{{alteon.Owner}}</a
+          >
+        </td>
+        {% if alteon.Console != '' %}
+        <td>
+          <a href="telnet://{{alteon.Console}}:{{alteon.Console_Port}}"
+            >{{alteon.Console}}:{{alteon.Console_Port}}</a
+          >
+        </td>
+        {% else %}
+        <td>None</td>
+        {% endif %}
+        <td>
+          <a href="https://{{alteon.Management}}" target="_blank"
+            >{{alteon.Management}}</a
+          >
+        </td>
+        <td>{{alteon.Vlans}}</td>
+        <td>{{alteon.User_name}}</td>
+        <td>{{alteon.Password}}</td>
+
+        {% if alteon.State == '' %}
+        <td
+          class="strong"
+          id="alteon--State{{alteon.id}}"
+          placeholder="processing..."
+        >
+          {{alteon.State}}
+        </td>
+        {% elif alteon.State == 'Online' %}
+        <td class="strong" id="alteon--State{{alteon.id}}" bgcolor="lightgreen">
+          {{alteon.State}}
+        </td>
+        {% else %}
+        <td bgcolor="lightcoral" class="strong" id="alteon--State{{alteon.id}}">
+          {{alteon.State}}
+        </td>
+        {% endif %} {% if alteon.Usage_Days == None or alteon.Usage_Days == 0 %}
+        <td>Free to Use</td>
+        {% else %}
+        <td>{{alteon.Usage_Days}}</td>
+        {% endif %}
+        <td>
+          <a
+            class="alteon--details"
+            data-id="{{alteon.id}}"
+            onload="myFunction(this)"
+            id="{{alteon.id}}"
+            href="{% url 'alteon-details' alteon.id %}"
+            >Details</a
+          >
+        </td>
+        <td><a href="{% url 'update-alteon' alteon.id %}">Edit</a></td>
+        <td>
+          <a
+            href="{% url 'delete-alteon' alteon.id %}"
+            {%comment%}
+            onclick="deleteAlteon()"
+            {%endcomment%}
+            id="delete"
+            data-id="{{alteon.id}}"
+            data-Management="{{alteon.Management}}"
+            ><img
+              src="{% static 'img/delete-button.png' %}"
+              alt="Delete"
+              style="height: 20px; width: auto"
+          /></a>
+        </td>
+
+        <!--                <td>{{alteons.MAC}}</td>-->
+        <!--                <td>{{alteon.Owner}}</td>-->
+      </tr>
+
+      {% endfor %}
+    </table>
+  </table>
+  {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success alert-dismissible  alert__message alert--{{message.tags}}" role="alert">
+      {{message}}
+      <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    </div>
+    {% endfor %}
+  {% endif %}
+  {% include 'pagination.html' with queryset=alt_list custom_range=custom_range %}
+  {% endblock %}
+</body>
+{% block scripts %}
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+{% endblock %}
