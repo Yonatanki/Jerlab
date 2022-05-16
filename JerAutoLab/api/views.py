@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import ADCSerializer
 from devices.models import ADC, Router
-from devices.utils import deleteAlteon
+# from devices.utils import deleteAlteon
 
 import requests
 from requests.auth import HTTPBasicAuth
