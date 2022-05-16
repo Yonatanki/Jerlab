@@ -26,7 +26,7 @@ class ADC(models.Model):
     # em= models.EmailField()
     Management = models.CharField(max_length=200, unique=True)
     Console = models.CharField(max_length=200, blank=True)
-    Console_Port = models.CharField(max_length=200, blank=True)
+    Management_Port = models.CharField(max_length=200, blank=True)
     Management_Vlan = models.CharField(max_length=200, blank=True)
     State = models.CharField(max_length=200, blank=True)
     Router_Management = models.ForeignKey(
