@@ -1,0 +1,53 @@
+
+{% extends 'main.html' %} 
+{% block content %}
+
+<div class="container-fluid">
+	<div class="row">
+
+		<div class="col-md-6">
+
+        <h4 style="text-align:center">Router Ports</h4>
+
+
+            <table class="table table-striped table-hover table-bordered">
+<tbody>
+     <thead class="thead-dark">
+            <td>Port</td>
+            <td>Connector</td>
+            <td>Speed</td>
+            <td>VLAN</td>
+            <td>Access</td>
+	        <td>Status</td>
+            <td>Alteon Port</td>
+
+     </thead>
+{% for row in my_ports %}
+<tr>
+<td>{{row["port"]}}</td>
+<td>{{row["connector"]}}</td>
+<td>{{row["speed"]}}</td>
+<td>{{row["vlan"]}}</td>
+<td>{{row["access"]}}</td>
+<td>{{row["status"]}}</td>
+<td>{{row.alteon_port.alteon_id}}</td>
+</tr>
+ {% endfor %}
+</tbody>
+
+</table>
+
+
+		</div>
+
+        		<div class="col-md-6">
+
+		</div>
+
+
+	</div>
+</div>
+
+
+
+{% endblock %}

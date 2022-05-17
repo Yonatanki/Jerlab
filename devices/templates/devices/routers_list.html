@@ -1,0 +1,49 @@
+{% extends 'main.html' %}
+{% block content %}
+<!-- <p>Routers page</p>-->
+<button class="btn btn--sub btn--lg addbutton" style="padding: 5px;"><a href="{% url 'create-router' %}" class="btn--sub">Add Router</a></button>
+        <table class="table table-striped table-hover table-bordered">
+            <table class="settings__table table-bordered table-striped table-condensed  ">
+             <thead class="thead-dark strong">
+                 <tr>
+                    <td >Router Name</td>
+                    <td>Router Type</td>
+                    <td>HTTP (For Juniper)</td>
+                    <td>SSH</td>
+                    <td>User</td>
+                    <td>Password</td>
+                    {% comment %} <td>Ports</td>
+                    <td>Ports List</td> {% endcomment %}
+                 </tr>
+             </thead>
+
+<!--        <h1>{{project.MAC}}</h1>-->
+            {% for router in router_list %}
+                 <tr>
+                    <td>{{router.Device_Name}}</td>
+                    <td>{{router.Type}}</td>
+                    <td><a href="http://{{router.Management}}" target="_blank">{{router.Management}}</a></td>
+                    <td><a href="ssh2://{{router.Management}}">{{router.Management}}</a></td>
+                    <td>{{router.User_name}}</td>
+                    <td>{{router.Password}}</td>
+                    <td><a href="{% url 'update-router' router.Management %}">Edit</a></td>
+                    <!-- <td><a href="">Delete</a></td> -->
+<!--                    <td>Ports</td>-->
+<!--                    <td>Ports List</td>-->
+                 </tr>
+            {% endfor %}
+
+    </table>
+        </table>
+<!--        <hr>-->
+<!--        {{project.MAC}}-->
+<!--        {% for alteon in ADC.adc.all %}-->
+<!--            <span style="border:2px solid blue">{{alteon.Rack}}</span>-->
+<!--        {% endfor %}-->
+<!--        <hr>-->
+<!--        <br>-->
+<!--        <p>{{project.RAM}}</p>-->
+{% include 'pagination.html' with queryset=router_list custom_range=custom_range %}
+
+{% endblock %}
+      

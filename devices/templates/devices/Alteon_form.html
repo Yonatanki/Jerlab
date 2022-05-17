@@ -1,0 +1,55 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>-->
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"
+      integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous"
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<!-- Main Section -->
+<main class="formPage my-xl">
+    <div class="content-box">
+        <div class="formWrapper">
+            <div class="container  form--inline container--header-form  ">
+                <button class="backButton" onclick="history.back()" cursor: pointer;><i class="im im-angle-left" style="color:navy">&lt;</i></button>
+                <div>
+                    <label class="fr form__field form__label--inline form__label ">Alteon Details</label>
+                </div>
+            </div>
+            <form class="form" method="POST", enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in alteon_form %}
+                    {% for displayfield in display %}
+                        {% if field.label.lower == displayfield.lower  %}
+                            <!-- Input:Text -->
+                            <div class="form__field">
+                                <label for="formInput#text">{{field.label}} </label>
+                                {{field}}
+                            </div>
+                        {% endif %}
+                   {% endfor %}
+                {% endfor %}
+                <input class="btn btn--sub btn--lg  my-md" type="submit" value="submit" class="alteon--d"
+                data-id="{{alteon_form.id}}" onclick="myFunction()" />
+                {% if messages %}
+                <ul class="alert alert-warning" role="alert">
+                    {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</main>
+
+
+
+
+{% endblock %}
+
+
+

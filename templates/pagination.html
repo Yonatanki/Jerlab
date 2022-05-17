@@ -1,0 +1,75 @@
+{% load static %}
+{% if queryset.has_other_pages %}
+<div class="pagination container--narrow">
+    <ul  style="width: 100%;">
+
+        {% if queryset.has_previous %}
+        <li><a href="?page={{queryset.previous_page_number}}" class="btn page-link"data-page="{{queryset.previous_page_number}}">&#10094; Prev</a></li>
+        {% endif %}
+
+        {% for page in custom_range %}
+
+        {% if page == queryset.number%}
+        <li><a href="?page={{page}}" class="btn page-link btn--sub" data-page="{{page}}">{{page}}</a></li>
+        {% else %}
+        <li><a href="?page={{page}}" class="btn page-link" data-page="{{page}}">{{page}}</a></li>
+        {% endif %}
+        {% endfor %}
+
+        {% if queryset.has_next %}
+        <li><a href="?page={{queryset.next_page_number}}" class="btn page-link" data-page="{{queryset.next_page_number}}">Next &#10095;</a></li>
+        {% endif %}
+    </ul>
+</div>
+{% endif %}
+
+<script src="{% static 'js/main.js' %}"></script>
+
+<!--<script type="text/javascript">-->
+<!--    // GET SEARCH FORM AND PAGE LINKS-->
+<!--    let searchForm = document.getElementById('searchForm')-->
+<!--    let pageLinks = document.getElementsByClassName('page-link')-->
+<!--    console.log('PAGE:', searchForm);-->
+<!--    // ENSURE SEARCH FORM EXISTS-->
+<!--    if(searchForm){-->
+<!--        for(let i = 0; pageLinks.length > i; i++){-->
+<!--            pageLinks[i].addEventListener('click', function (e) {-->
+<!--                e.preventDefault()-->
+
+<!--            // GET THE DATA ATTRIBUTE-->
+<!--                let page = this.dataset.page-->
+<!--                console.log('PAGE:', page);-->
+
+<!--            // ADD HIDDEN SEARCH INPUT TO FORM-->
+<!--                searchForm.innerHTML += `<input value=${page} name="page" hidden/> `-->
+
+<!--                // SUBMIT FORM-->
+<!--                searchForm.submit()-->
+<!--            })-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
+
+<!-- {% if alt_list.has_other_pages %}
+<div class="pagination containernarrow" style=" position: relative; scroll-margin-left: 20%; scroll-margin-right: 20%;">
+  <ul class="container" style="width: 850px;">
+
+    {% if alt_list.has_previous %}
+    <li><a href="?page={{alt_list.previous_page_number}}" class="btn page-link">&#10094; Prev</a></li>
+    {% endif %}
+
+    {% for page in custom_range %}
+
+    {% if page == alt_list.number %}
+    <li><a href="?page={{page}}" class="btn page-link btn--sub">{{page}}</a></li>
+    {% else %}
+      <li><a href="?page={{page}}" class="btn page-link">{{page}}</a></li>
+    {% endif %}
+    {% endfor %}
+
+    {% if alt_list.has_next %}
+    <li><a href="?page={{alt_list.next_page_number}}" class="btn page-link">Next &#10095;</a></li>
+    {% endif %}
+  </ul>
+</div>
+{% endif%} -->

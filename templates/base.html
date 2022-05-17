@@ -1,0 +1,87 @@
+<?php
+    $is_student = null;
+    if (!empty($_REQUEST["student"])) {
+        $is_student = $_REQUEST["student"];
+    }
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input,button {
+            
+            margin-bottom: 5px;
+        }
+        fieldset {width: 30%; }
+    </style>
+    <script>
+        function onBtnGetUserClicked(btn) {
+            console.log(btn.id);
+            buttonNum = btn.id.substring(6);
+            console.log(buttonNum);
+            // let button = document.getElementsByID("getUser");
+            let input = document.getElementById("text" + buttonNum);
+            input.value = "eli";
+        }
+    </script>
+</head>
+<body>
+    <h1>Hello</h1>
+
+    
+    <?php 
+        for ($i=0; $i<10; $i++) {
+            echo '<button id="button' . $i . '"class="myclass" onclick="onBtnGetUserClicked(this)">get user</button>';
+            echo '<input id="text' . $i . '" onclick="onBtnGetUserClicked()">get user</button>';
+        }
+    ?>
+    <form method="post">
+        <input type="text" id="username" name="username" placeholder="User name"/>
+
+        <input  type="checkbox" name="student" <?php echo $is_student ? "checked" : "" ?>>Student?</input>
+
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+{% comment %} <!doctype html>
+{% load static %}
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Default Title{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">
+    {% block stylesheet %}{% endblock %}
+  </head>
+  <body>
+    <header>
+      ...
+    </header>
+    <main>
+      {% block content %}
+      {% endblock %}
+    </main>
+    <footer>
+      ...
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    {% block javascript %}{% endblock %}
+  </body>
+</html> {% endcomment %}

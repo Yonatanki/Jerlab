@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="formPage my-xl">
+<div style="padding-left: 28%" class="formWrapper">
+{% comment %} <div  class="container  form--inline container--header-form "> {% endcomment %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <p style="font-weight: bold; font-size: 30px;" class="strong" >Are you sure you want to delete "{{alteon.Management}}"?</p>
+    <a style="color: black;" href="{% url 'altlist' %}"><input type="submit" value="Go Back"/></a>
+    <input style="color: black;" type="submit" value="Confirm" />
+</form>
+    <div>
+        <label for="Platform">Platform</label>
+        <strong><input class="input" type="text" name="Platform" value="{{alteon.Platform}}" readonly></strong>
+
+        <label for="RAM">RAM</label>
+        <strong><input class="input" type="text" name="Version" value="{{alteon.RAM}}" readonly></strong>
+    </div>
+    {% comment %} <table data-id="{{alteon.id}}" id="alteon--d" class=" table table-striped table-hover table-bordered table-condensed">
+        <tbody>
+            <tr>
+                <td >Platform</td>
+                <td id="alteon--Platform{{alteon.id}}">{{alteon.Platform}}</td>
+            </tr>
+        </tbody>
+    </table> {% endcomment %}
+{% comment %} </form> {% endcomment %}
+{% comment %} </div> {% endcomment %}
+</div>
+
+
+
+{% endblock %}
